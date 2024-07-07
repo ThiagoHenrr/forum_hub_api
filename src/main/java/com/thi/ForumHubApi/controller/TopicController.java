@@ -1,9 +1,6 @@
 package com.thi.ForumHubApi.controller;
 
-import com.thi.ForumHubApi.topic.ListTopicData;
-import com.thi.ForumHubApi.topic.Topic;
-import com.thi.ForumHubApi.topic.TopicData;
-import com.thi.ForumHubApi.topic.TopicRepository;
+import com.thi.ForumHubApi.topic.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,4 +40,12 @@ public class TopicController {
     public Page<ListTopicData> listAll(@PageableDefault(size = 3, sort = {"title"}, direction = Sort.Direction.ASC) Pageable pageable){
         return repository.findAll(pageable).map(ListTopicData::new);
     }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid updateTopicData data){
+        Topic topic = repository.getReferenceById(data.id());
+        topic.updateTopic(data);
+    }
+
 }

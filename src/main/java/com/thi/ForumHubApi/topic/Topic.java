@@ -50,4 +50,12 @@ public class Topic {
         creationDate = LocalDateTime.now();
     }
 
+    public void updateTopic(updateTopicData data) {
+        if(data.title() != null){
+            this.title = data.title();
+        }
+        if(data.message() != null){
+            this.message = data.message();
+        }
+    }
 }
