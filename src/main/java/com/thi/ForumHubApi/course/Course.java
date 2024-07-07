@@ -19,4 +19,9 @@ public class Course {
     private Long id;
     private String name;
     private String category;
+
+    public Course(String data) {
+        this.name = data;
+        this.category = "";
+    }
 }

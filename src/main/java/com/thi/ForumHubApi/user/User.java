@@ -32,4 +32,9 @@ public class User {
     )
     private List<Profile> profiles = new ArrayList<>();
 
+    @Override
+    public String toString(){
+        return name + "\n" +
+                email + "\n";
+    }
 }

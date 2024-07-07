@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,15 +26,28 @@ public class Topic {
     private Long id;
     private String title;
     private String message;
-    private Date creationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate;
     private String status;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "course_id")
     private Course course;
     @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
+
+    public Topic(TopicData data){
+        this.title = data.title();
+        this.message = data.message();
+        this.course = new Course(data.course());
+    }
+
+    @PrePersist
+    protected void onCreate(){
+        creationDate = LocalDateTime.now();
+    }
 
 }

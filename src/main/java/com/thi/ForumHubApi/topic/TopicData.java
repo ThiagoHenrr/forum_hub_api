@@ -1,6 +1,13 @@
 package com.thi.ForumHubApi.topic;
 
-public record TopicData(String title,
-                        String message,
-                        String course) {
+import jakarta.validation.constraints.NotBlank;
+
+public record TopicData(
+        @NotBlank
+        String title,
+        @NotBlank
+        String message,
+        @NotBlank
+        String course
+) {
 }
