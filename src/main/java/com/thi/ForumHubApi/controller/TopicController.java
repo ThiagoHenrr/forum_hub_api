@@ -48,4 +48,13 @@ public class TopicController {
         topic.updateTopic(data);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id){
+        Optional<Topic> topicId = repository.findById(id);
+
+        if(topicId.isPresent()) {
+            repository.deleteById(id);
+        }
+    }
 }
