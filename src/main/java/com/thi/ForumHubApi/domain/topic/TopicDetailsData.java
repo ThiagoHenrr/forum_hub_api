@@ -1,7 +1,7 @@
-package com.thi.ForumHubApi.topic;
+package com.thi.ForumHubApi.domain.topic;
 
-import com.thi.ForumHubApi.course.Course;
-import com.thi.ForumHubApi.user.User;
+import com.thi.ForumHubApi.domain.course.Course;
+import com.thi.ForumHubApi.domain.user.User;
 
 import java.time.LocalDateTime;
 

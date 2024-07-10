@@ -1,4 +1,4 @@
-package com.thi.ForumHubApi.course;
+package com.thi.ForumHubApi.domain.user;
 
 
 import jakarta.persistence.*;
@@ -7,21 +7,21 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "course")
-@Entity(name = "Course")
+import java.util.ArrayList;
+import java.util.List;
+
+@Table(name = "profile")
+@Entity(name = "Profile")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Course {
+public class Profile {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String category;
+    @ManyToMany(mappedBy = "profiles")
+    private List<User> users = new ArrayList<>();
 
-    public Course(String data) {
-        this.name = data;
-        this.category = "";
-    }
 }

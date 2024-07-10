@@ -1,6 +1,7 @@
 package com.thi.ForumHubApi.controller;
 
-import com.thi.ForumHubApi.topic.*;
+import com.thi.ForumHubApi.domain.topic.*;
+import com.thi.ForumHubApi.domain.topic.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

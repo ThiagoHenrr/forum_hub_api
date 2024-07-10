@@ -1,7 +1,7 @@
-package com.thi.ForumHubApi.answer;
+package com.thi.ForumHubApi.domain.answer;
 
-import com.thi.ForumHubApi.topic.Topic;
-import com.thi.ForumHubApi.user.Profile;
+import com.thi.ForumHubApi.domain.user.Profile;
+import com.thi.ForumHubApi.domain.topic.Topic;
 import jakarta.persistence.*;
 
 import java.sql.Date;

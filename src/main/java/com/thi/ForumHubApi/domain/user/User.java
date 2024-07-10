@@ -1,4 +1,4 @@
-package com.thi.ForumHubApi.user;
+package com.thi.ForumHubApi.domain.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Table(name = "user")
 @Entity(name = "User")

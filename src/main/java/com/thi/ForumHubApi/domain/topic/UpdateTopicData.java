@@ -1,4 +1,4 @@
-package com.thi.ForumHubApi.topic;
+package com.thi.ForumHubApi.domain.topic;
 
 import jakarta.validation.constraints.NotNull;
 
