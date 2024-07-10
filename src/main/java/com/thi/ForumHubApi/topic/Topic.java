@@ -28,7 +28,7 @@ public class Topic {
     private String message;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", updatable = false)
-    private LocalDateTime creationDate;
+    private final LocalDateTime creationDate = LocalDateTime.now();
     private String status;
     @ManyToOne
     @JoinColumn(name = "author_id")
@@ -45,12 +45,12 @@ public class Topic {
         this.course = new Course(data.course());
     }
 
-    @PrePersist
-    protected void onCreate(){
-        creationDate = LocalDateTime.now();
-    }
+//    @PrePersist
+//    protected void onCreate(){
+//        creationDate = LocalDateTime.now();
+//    }
 
-    public void updateTopic(updateTopicData data) {
+    public void updateTopic(UpdateTopicData data) {
         if(data.title() != null){
             this.title = data.title();
         }
