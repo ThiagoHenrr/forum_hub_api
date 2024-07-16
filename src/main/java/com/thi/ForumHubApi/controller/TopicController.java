@@ -1,7 +1,8 @@
 package com.thi.ForumHubApi.controller;
 
 import com.thi.ForumHubApi.domain.topic.*;
-import com.thi.ForumHubApi.domain.topic.*;
+import com.thi.ForumHubApi.infra.security.SecurityFilter;
+import com.thi.ForumHubApi.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,11 @@ public class TopicController {
 
     @Autowired
     private TopicRepository repository;
+
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private SecurityFilter securityFilter;
 
     @PostMapping
     @Transactional

@@ -58,4 +58,5 @@ public class Topic {
             this.message = data.message();
         }
     }
+
 }
