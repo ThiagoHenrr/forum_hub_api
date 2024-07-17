@@ -1,8 +1,10 @@
 package com.thi.ForumHubApi.controller;
 
 import com.thi.ForumHubApi.domain.topic.*;
+import com.thi.ForumHubApi.domain.user.User;
 import com.thi.ForumHubApi.infra.security.SecurityFilter;
 import com.thi.ForumHubApi.infra.security.TokenService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -33,16 +37,11 @@ public class TopicController {
     @Transactional
     public ResponseEntity create(@RequestBody @Valid TopicData data, UriComponentsBuilder uriBuilder){
 
-        Optional<Topic> optionalTopicTitle = repository.findByTitle(data.title());
-        Optional<Topic> optionalTopicMessage = repository.findByMessage(data.message());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
 
-//        //Do it better with exceptions(?)
-//        if(optionalTopicTitle.isPresent() && optionalTopicMessage.isEmpty()){
-//            repository.save(new Topic(data));
-//        } else if(optionalTopicTitle.isEmpty() && optionalTopicMessage.isPresent() ){
-//            repository.save(new Topic(data));
-//        }
         Topic topic = new Topic(data);
+        topic.setAuthor(user);
         repository.save(topic);
 
         URI uri = uriBuilder.path("/topic/{id}").buildAndExpand(topic.getId()).toUri();

@@ -5,10 +5,7 @@ import com.thi.ForumHubApi.domain.answer.Answer;
 import com.thi.ForumHubApi.domain.course.Course;
 import com.thi.ForumHubApi.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +27,7 @@ public class Topic {
     @Column(name = "creation_date", updatable = false)
     private final LocalDateTime creationDate = LocalDateTime.now();
     private String status;
+    @Setter
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
@@ -45,11 +43,6 @@ public class Topic {
         this.course = new Course(data.course());
     }
 
-//    @PrePersist
-//    protected void onCreate(){
-//        creationDate = LocalDateTime.now();
-//    }
-
     public void updateTopic(UpdateTopicData data) {
         if(data.title() != null){
             this.title = data.title();
@@ -58,5 +51,4 @@ public class Topic {
             this.message = data.message();
         }
     }
-
 }
