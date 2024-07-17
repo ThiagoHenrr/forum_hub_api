@@ -4,7 +4,6 @@ import com.thi.ForumHubApi.domain.topic.*;
 import com.thi.ForumHubApi.domain.user.User;
 import com.thi.ForumHubApi.infra.security.SecurityFilter;
 import com.thi.ForumHubApi.infra.security.TokenService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
