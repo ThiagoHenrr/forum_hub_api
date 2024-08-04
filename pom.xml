@@ -107,8 +107,8 @@
 				<version>10.15.2</version>
 				 <configuration>
 					<url>jdbc:mysql://localhost/forum_hub_api</url>
-					<user>th0</user>
-					<password>th0123</password>
+					<user>${env.MYSQL_USER}</user>
+					<password>${env.MYSQL_PASS}</password>
 				</configuration>
 			</plugin>
 		</plugins>
