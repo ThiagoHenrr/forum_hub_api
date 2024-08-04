@@ -3,6 +3,12 @@
 
 <strong>Esse projeto foi criado apenas para fins educativos</strong>
 
+<p>Primeiramente você deverá configurar duas variáveis de ambientes no seu SO para conseguir se comunicar com o banco de dados. Elas são:</p>
+<p>{<br>
+	<strong>MYSQL_USER -> deverá conter o usuário do banco de dados<br>
+	MYSQL_PASS -> deverá conter a senha do usuário do banco de dados</strong><br>
+}</p>
+
 <h2>Objetivo:</h2>
 
 
