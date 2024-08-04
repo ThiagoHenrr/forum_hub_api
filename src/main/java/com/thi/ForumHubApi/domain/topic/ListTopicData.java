@@ -7,11 +7,12 @@ public record ListTopicData(
         String title,
         String message,
         LocalDateTime creationDate,
+        String author,
         String status,
         String course
 ) {
 
     public ListTopicData(Topic topic){
-        this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreationDate(), topic.getStatus(), topic.getCourse().getName());
+        this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreationDate(), topic.getAuthor().getName(), topic.getStatus(), topic.getCourse().getName());
     }
 }

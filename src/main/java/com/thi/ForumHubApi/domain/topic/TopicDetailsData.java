@@ -11,11 +11,11 @@ public record TopicDetailsData(
         String message,
         LocalDateTime creationDate,
         String status,
-        User author,
+        String author,
         Course course
 ) {
 
     public TopicDetailsData(Topic topic){
-        this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreationDate(), topic.getStatus(), topic.getAuthor(), topic.getCourse());
+        this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreationDate(), topic.getStatus(), topic.getAuthor().getName(), topic.getCourse());
     }
 }
