@@ -57,6 +57,9 @@ public class TopicController {
     @Transactional
     public ResponseEntity update(@RequestBody @Valid UpdateTopicData data){
         Topic topic = repository.getReferenceById(data.id());
+        if(!comparingUsers(topic)){
+            return ResponseEntity.notFound().build();
+        }
         topic.updateTopic(data);
 
         return ResponseEntity.ok(new TopicDetailsData(topic));
@@ -66,7 +69,11 @@ public class TopicController {
     @Transactional
     public ResponseEntity delete(@PathVariable Long id){
         Optional<Topic> topicId = repository.findById(id);
+        Topic topic = repository.getReferenceById(id);
 
+        if(!comparingUsers(topic)){
+            return ResponseEntity.notFound().build();
+        }
         if(topicId.isPresent()) {
             repository.deleteById(id);
         }
@@ -78,5 +85,13 @@ public class TopicController {
     public ResponseEntity detail(@PathVariable Long id){
         Topic topic = repository.getReferenceById(id);
         return ResponseEntity.ok(new TopicDetailsData(topic));
+    }
+
+    private boolean comparingUsers(Topic topic){
+        User author = topic.getAuthor();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        return author.equals(currentUser);
     }
 }
