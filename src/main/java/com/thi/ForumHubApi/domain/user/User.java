@@ -34,6 +34,12 @@ public class User implements UserDetails {
     )
     private List<Profile> profiles = new ArrayList<>();
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public String toString(){
         return name + "\n" +
