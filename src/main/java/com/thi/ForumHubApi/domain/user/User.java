@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString(){
-        return name + "\n" +
+        return name + ", " +
                 email + "\n";
     }
 
