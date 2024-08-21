@@ -7,10 +7,6 @@ import com.thi.ForumHubApi.domain.user.User;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,7 +46,7 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity listAnswers(@PathVariable Long topicId, @PageableDefault(size = 3, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity listAnswers(@PathVariable Long topicId){
         Optional<Topic> optionalTopic = topicRepository.findById(topicId);
         if(optionalTopic.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -58,6 +54,26 @@ public class AnswerController {
         List<ListAnswersData> ans = answerRepository.findByTopicId(topicId);
 
         return ResponseEntity.ok(ans);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity update(@PathVariable Long topicId, @RequestBody @Valid UpdateAnswerData data){
+        Answer ans = answerRepository.getReferenceById(data.id());
+        if(!comparingUsers(ans)){
+            return ResponseEntity.notFound().build();
+        }
+        ans.updateAnswer(data);
+
+        return ResponseEntity.ok(new AnswerDetailsData(ans));
+    }
+
+    private boolean comparingUsers(Answer answer){
+        User author = answer.getAuthor();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        return author.equals(currentUser);
     }
 
 }

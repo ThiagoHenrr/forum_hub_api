@@ -47,4 +47,10 @@ public class Answer {
                 ", solution='" + solution + '\'' +  "\n" +
                 '}';
     }
+
+    public void updateAnswer(UpdateAnswerData data) {
+        if(data.message() != null){
+            this.message = data.message();
+        }
+    }
 }
