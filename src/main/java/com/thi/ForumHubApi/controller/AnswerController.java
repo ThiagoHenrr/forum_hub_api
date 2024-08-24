@@ -1,6 +1,7 @@
 package com.thi.ForumHubApi.controller;
 
 import com.thi.ForumHubApi.domain.answer.*;
+import com.thi.ForumHubApi.domain.topic.ListTopicData;
 import com.thi.ForumHubApi.domain.topic.Topic;
 import com.thi.ForumHubApi.domain.topic.TopicRepository;
 import com.thi.ForumHubApi.domain.user.User;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topic/{topicId}/answer")
@@ -51,9 +53,15 @@ public class AnswerController {
         if(optionalTopic.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        List<ListAnswersData> ans = answerRepository.findByTopicId(topicId);
+        List<Answer> answers = answerRepository.findByTopicId(topicId);
+        List<ListAnswersData> ans = answers.stream()
+                .map(ListAnswersData::new)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(ans);
+        ListTopicData topic = new ListTopicData(optionalTopic.get());
+        TopicWithAnswers response = new TopicWithAnswers(topic, ans);
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
